@@ -18,4 +18,4 @@ def test_class_time():
 #what happens if the date is not exist, for example 29/02/leap year
 #what happens with different dates, examples dates are same dates
 #what happens if time range is in opposite order
-#how to express for AD years?
+#how to express for BC years?
