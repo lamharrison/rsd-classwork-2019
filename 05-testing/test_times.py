@@ -1,6 +1,7 @@
 from times import time_range,overlap_time
 import datetime
 import times
+import pytest
 
 def test_given_input():
     large = time_range("2010-01-12 10:00:00", "2010-01-12 12:00:00")
@@ -30,3 +31,9 @@ def test_20_min():
     datetime.datetime.strptime(t0, "%Y-%m-%d %H:%M:%S")).total_seconds() == 20 * 60
     for t0, t1 in result])
      # add methods
+
+#add Negative tests - Test that something is expected to fail
+#time_range may still work when t1 is before t0, but that may make overlap_time not working as expected.
+def test_range_backwards():
+    with pytest.raises(ValueError, match=r"Stopping date should happen after than starting date"):
+        times.time_range("2019-10-31 00:00:00", "2019-10-30 00:50:00", 3, 600)
