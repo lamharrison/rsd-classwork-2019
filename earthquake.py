@@ -1,8 +1,6 @@
-import requests
+import numpy as np  # Import numpy
 import json
 import requests
-import geopy
-from IPython.display import Image
 
 quakes = requests.get("http://earthquake.usgs.gov/fdsnws/event/1/query.geojson",
                       params={
@@ -52,5 +50,7 @@ for i in features:
 
 print(coord)
 print('The maximum mag is: '+ str(maxValue) + ' at ' +str(location))
-map_png = request_map_at(coord[0], coord[1], zoom=10, satellite=False)
-Image(map_png.content)
+map = request_map_at(coord[1], coord[0], satellite=False)
+
+from IPython.display import Image
+Image(map.content)
