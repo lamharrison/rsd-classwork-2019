@@ -1,5 +1,5 @@
 """Computation of weighted average of squares."""
-
+from argparse import ArgumentParser
 
 def average_of_squares(list_of_numbers, list_of_weights=None):
     """
@@ -22,13 +22,13 @@ def average_of_squares(list_of_numbers, list_of_weights=None):
             "weights and numbers must have same length"
         effective_weights = list_of_weights
     else:
-        effective_weights = [1] * len(list_of_numbers)
+        effective_weights = [1.] * len(list_of_numbers)
     squares = [
         weight * number * number
         for number, weight
         in zip(list_of_numbers, effective_weights)
     ]
-    return sum(squares)
+    return sum(squares)/len(list_of_numbers)
 
 
 def convert_numbers(list_of_strings):
@@ -38,7 +38,7 @@ def convert_numbers(list_of_strings):
     Example:
     -------
     >>> convert_numbers(["4", " 8 ", "15 16", " 23    42 "])
-    [4, 8, 15, 16]
+    [4.0, 8.0, 15.0, 16.0, 23.0, 42.0]
     """
     all_numbers = []
     for s in list_of_strings:
@@ -50,10 +50,15 @@ def convert_numbers(list_of_strings):
 
 
 if __name__ == "__main__":
-    with open("numbers.txt", "r") as numbers_file:
+    parser = ArgumentParser(description="Access number and weight files")
+    parser.add_argument('--numbers', '-n')
+    parser.add_argument('--weights', '-w')
+    arguments = parser.parse_args()
+
+    with open(arguments.numbers, "r") as numbers_file:
         numbers_strings = numbers_file.readlines()
     # TODO Can we make this optional, so that we don't need a weights file?
-    with open("weights.txt", "r") as weights_file:
+    with open(arguments.weights, "r") as weights_file:
         weight_strings = weights_file.readlines()
     numbers = convert_numbers(numbers_strings)
     weights = convert_numbers(weight_strings)
