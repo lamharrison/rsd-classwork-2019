@@ -32,7 +32,7 @@ group = {
 }
 
 
-def average_age():
+def average_age(group):
     """Compute the average age of the group's members."""
     all_ages = [person["age"] for person in group.values()]
     return sum(all_ages) / len(group)
@@ -57,5 +57,5 @@ def add_person(name, age, job, relations):
 if __name__ == "__main__":
     print("The group has {} members with an average age of {}".format(
         len(group),
-        average_age()
+        average_age(group)
     ))
